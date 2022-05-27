@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>openribbon web demo</title>
+        <style>
+
+            body {
+                font-family: monospace;
+                background-color: black;
+                color: white;
+                text-align: center;
+            }
+
+            .error-box {
+                color: black;
+                background-color: red;
+                font-weight: bold;
+                padding: 1em;
+            }
+
+            td {
+                padding: 0.5em;
+            }
+
+            .outline {
+                border: 1px solid white;
+            }
+
+            .spacing {
+                min-width: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- message to show when Javascript is not available -->
+        <noscript>
+            <div class="error-box">
+                Javascript is required to run the game.
+            </div>
+        </noscript>
+        <!-- message box to present other runtime errors to the user -->
+        <div id="runtime-error" class="error-box" hidden>
+            <span id="error-message"></span>
+        </div>
+        <!-- <center> works more reliably than css -->
+        <center>
+            <h1>openribbon web demo</h1>
+            <!-- canvas to render to -->
+            <canvas id="canvas" width="640" height="360" class="outline"></canvas>
+            <!-- shows how to play -->
+            <div>
+                <h3>how to play</h3>
+                <table>
+                    <tr>
+                        <td>block</td>
+                        <td class="outline">a</td>
+                        <td class="spacing"></td>
+                        <td></td>
+                        <td class="spacing"></td>
+                        <td class="outline">'</td>
+                        <td>loop&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;pit</td>
+                        <td class="outline">z</td>
+                        <td class="spacing"></td>
+                        <td></td>
+                        <td class="spacing"></td>
+                        <td class="outline">/</td>
+                        <td>wave&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="spacing"></td>
+                        <td class="outline">&nbsp;&nbsp;space&nbsp;&nbsp;</td>
+                        <td class="spacing"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="spacing"></td>
+                        <td>start</td>
+                        <td class="spacing"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+        <!-- emscripten setup -->
+        <script type="text/javascript">
+            // set up runtime errors to display in the error box
+            window.onerror = function(msg) {
+                document.getElementById('error-message').textContent = msg;
+                document.getElementById('runtime-error').hidden = false;
+                return false;
+            };
+            // set up module with proper canvas
+            var Module = { canvas: document.getElementById('canvas') };
+        </script>
+        <script async type="text/javascript" src="index.js"></script>
+    </body>
+</html>
+
+
